@@ -16,7 +16,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn -Dmaven.repo.local=/var/jenkins_home/maven/repository -B -DskipTests clean package'
+                sh 'mvn -B -DskipTests clean package'
             }
         }
         stage('Package') {
@@ -36,7 +36,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn -Dmaven.repo.local=/var/jenkins_home/maven/repository test'
+                sh 'mvn test'
             }
             post {
                 always {
