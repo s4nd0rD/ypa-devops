@@ -19,10 +19,9 @@ pipeline {
         }
         stage('Package') {
             steps{
-                withDockerServer() {
-                    script {
-                        DOCKER_IMAGE = docker.build DOCKER_IMAGE_FULL_NAME
-                    }
+                sh 'docker ps'
+                script {
+                    DOCKER_IMAGE = docker.build DOCKER_IMAGE_FULL_NAME
                 }
             }
         }
