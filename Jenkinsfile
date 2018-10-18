@@ -3,6 +3,7 @@ pipeline {
         DOCKER_IMAGE_NAME = "moduo/devops"
         DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:${FULL_VERSION}-${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = "DockerHub"
+        BRANCH_ENVIRONMENT    = getEnvironmentBranch()
         DOCKER_IMAGE = ''
         FULL_VERSION = ''
     }
@@ -83,4 +84,15 @@ def setVersion(branchTokens) {
     VERSION_MINOR = versionTokens[1]
     VERSION_PATCH = versionTokens[2]
     echo "VERSION: ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}s"
+}
+
+def getEnvironmentBranch() {
+    def getEnvironmentBranch = "feature"
+    def gitBranch = env.BRANCH_NAME
+
+    if(gitBranch.contains("release/")){
+        getEnvironmentBranch = "release"
+    }
+
+    return getEnvironmentBranch
 }
