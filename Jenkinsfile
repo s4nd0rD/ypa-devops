@@ -72,3 +72,15 @@ pipeline {
         }
     }
 }
+
+def setVersion(branchTokens) {
+    def versionTokens = branchTokens[1].split('\\.')
+
+    if(versionTokens.length != 3){
+        error "INVALID version ${branchTokens[1]}."
+    }
+    VERSION_MAJOR = versionTokens[0]
+    VERSION_MINOR = versionTokens[1]
+    VERSION_PATCH = versionTokens[2]
+    echo "VERSION: ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}s"
+}
