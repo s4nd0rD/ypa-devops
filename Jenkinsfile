@@ -35,7 +35,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn surefire:test'
+                sh 'mvn test'
             }
             post {
                 always {
