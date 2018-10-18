@@ -5,6 +5,7 @@ pipeline {
         REGISTRY_CREDENTIALS = "DockerHub"
         DOCKER_IMAGE = ''
     }
+    agent any
     stages {
         stage('Build') {
             agent {
