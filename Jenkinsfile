@@ -9,17 +9,19 @@ pipeline {
     agent any
     stages {
         stage('Prepare') {
-            script {
-                if(BRANCH_ENVIRONMENT == 'release'){
-                    def branchTokens = env.BRANCH_NAME.split('/')
-                    if(branchTokens.length == 2){
-                        setVersion(branchTokens)
-                        RELEASE_VERSION = "${VERSION_MAJOR}-${VERSION_MINOR}-${VERSION_PATCH}"
-                        FULL_VERSION = "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
-                    } else {
-                        FULL_VERSION = env.BRANCH_NAME.split('/')[1]
+            steps {
+                script {
+                    if(BRANCH_ENVIRONMENT == 'release'){
+                        def branchTokens = env.BRANCH_NAME.split('/')
+                        if(branchTokens.length == 2){
+                            setVersion(branchTokens)
+                            RELEASE_VERSION = "${VERSION_MAJOR}-${VERSION_MINOR}-${VERSION_PATCH}"
+                            FULL_VERSION = "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
+                        } else {
+                            FULL_VERSION = env.BRANCH_NAME.split('/')[1]
+                        }
+                        currentBuild.displayName = "${FULL_VERSION} #${BUILD_NUMBER}"
                     }
-                    currentBuild.displayName = "${FULL_VERSION} #${BUILD_NUMBER}"
                 }
             }
         }
