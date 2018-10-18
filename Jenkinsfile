@@ -1,4 +1,5 @@
 pipeline {
+    agent none
     environment {
         DOCKER_IMAGE_NAME = "moduo/devops"
         DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:v${BUILD_NUMBER}"
