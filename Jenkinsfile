@@ -19,12 +19,11 @@ pipeline {
         }
         stage('Package') {
             steps{
-
                 withDockerServer([]) {
-                    // some block
-                    DOCKER_IMAGE = docker.build DOCKER_IMAGE_FULL_NAME
+                    script {
+                        DOCKER_IMAGE = docker.build DOCKER_IMAGE_FULL_NAME
+                    }
                 }
-
             }
         }
         stage('Test') {
