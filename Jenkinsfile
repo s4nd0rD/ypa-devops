@@ -1,7 +1,7 @@
 pipeline {
     environment {
         DOCKER_IMAGE_NAME = "moduo/devops"
-        DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:${FULL_VERSION}-${BUILD_NUMBER}"
+        DOCKER_IMAGE_FULL_NAME = ""
         REGISTRY_CREDENTIALS = "DockerHub"
         BRANCH_ENVIRONMENT    = getEnvironmentBranch()
         DOCKER_IMAGE = ''
@@ -22,6 +22,7 @@ pipeline {
                             FULL_VERSION = env.BRANCH_NAME.split('/')[1]
                         }
                         currentBuild.displayName = "${FULL_VERSION} #${BUILD_NUMBER}"
+                        DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:${FULL_VERSION}-${BUILD_NUMBER}"
                     }
                 }
             }
