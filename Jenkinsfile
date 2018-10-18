@@ -19,7 +19,6 @@ pipeline {
         }
         stage('Package') {
             steps{
-                sh 'docker ps'
                 script {
                     DOCKER_IMAGE = docker.build DOCKER_IMAGE_FULL_NAME
                 }
