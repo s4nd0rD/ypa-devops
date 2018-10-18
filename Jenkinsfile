@@ -19,9 +19,12 @@ pipeline {
         }
         stage('Package') {
             steps{
-                script {
+
+                withDockerServer([uri: 'unix:///var/run/docker.sock']) {
+                    // some block
                     DOCKER_IMAGE = docker.build DOCKER_IMAGE_FULL_NAME
                 }
+
             }
         }
         stage('Test') {
