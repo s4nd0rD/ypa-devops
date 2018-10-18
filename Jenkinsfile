@@ -5,27 +5,35 @@ pipeline {
         REGISTRY_CREDENTIALS = "DockerHub"
         DOCKER_IMAGE = ''
     }
-    agent {
-        docker {
-            image 'maven:3-jdk-11'
-            args '-u "root" -v /root/.m2:/root/.m2'
-        }
-    }
+    agent any
     stages {
         stage('Build') {
+            agent {
+                docker {
+                    image 'maven:3-jdk-11'
+                    args '-u root -v /root/.m2:/root/.m2'
+                    reuseNode true
+                }
+            }
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn clean install -DskipTests'
             }
         }
         stage('Package') {
-            steps{
-                sh 'docker ps'
+            steps {
                 script {
                     DOCKER_IMAGE = docker.build DOCKER_IMAGE_FULL_NAME
                 }
             }
         }
         stage('Test') {
+            agent {
+                docker {
+                    image 'maven:3-jdk-11'
+                    args '-u root -v /root/.m2:/root/.m2'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'mvn test'
             }
