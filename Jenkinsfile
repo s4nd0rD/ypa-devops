@@ -1,16 +1,13 @@
 pipeline {
+    agent none
+
     environment {
         DOCKER_IMAGE_NAME = "moduo/devops"
         DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:v${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = "DockerHub"
         DOCKER_IMAGE = ''
     }
-    agent {
-        docker {
-            image 'maven:3-jdk-11'
-            args '-u "root" -v /root/.m2:/root/.m2'
-        }
-    }
+
     stages {
         stage('Build') {
             steps {
@@ -18,6 +15,16 @@ pipeline {
             }
         }
         stage('Package') {
+
+            agent {
+                docker {
+                    image 'maven:3-jdk-11'
+                    args '-u root -v /root/.m2:/root/.m2'
+                }
+            }
+
+
+
             steps{
                 sh 'docker ps'
                 script {
