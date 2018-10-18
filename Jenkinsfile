@@ -12,10 +12,11 @@ pipeline {
                 docker {
                     image 'maven:3-jdk-11'
                     args '-u root -v /root/.m2:/root/.m2'
+
                 }
             }
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn -Dmaven.repo.local=/var/jenkins_home/maven/repository -B -DskipTests clean package'
             }
         }
         stage('Package') {
@@ -35,7 +36,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn test'
+                sh 'mvn -Dmaven.repo.local=/var/jenkins_home/maven/repository test'
             }
             post {
                 always {
