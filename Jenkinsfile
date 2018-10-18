@@ -1,6 +1,4 @@
 pipeline {
-    agent none
-
     environment {
         DOCKER_IMAGE_NAME = "moduo/devops"
         DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:v${BUILD_NUMBER}"
@@ -10,21 +8,19 @@ pipeline {
 
     stages {
         stage('Build') {
+
+            agent {
+                docker {
+                    image 'maven:3-jdk-11'
+                    args '-u "root" -v /root/.m2:/root/.m2'
+                }
+            }
+
             steps {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
         stage('Package') {
-
-            agent {
-                docker {
-                    image 'maven:3-jdk-11'
-                    args '-u root -v /root/.m2:/root/.m2'
-                }
-            }
-
-
-
             steps{
                 sh 'docker ps'
                 script {
