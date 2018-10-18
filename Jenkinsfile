@@ -1,12 +1,28 @@
 pipeline {
     environment {
         DOCKER_IMAGE_NAME = "moduo/devops"
-        DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:v${BUILD_NUMBER}"
+        DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:${FULL_VERSION}-${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = "DockerHub"
         DOCKER_IMAGE = ''
+        FULL_VERSION = ''
     }
     agent any
     stages {
+        stage('Prepare') {
+            script {
+                if(BRANCH_ENVIRONMENT == 'release'){
+                    def branchTokens = env.BRANCH_NAME.split('/')
+                    if(branchTokens.length == 2){
+                        setVersion(branchTokens)
+                        RELEASE_VERSION = "${VERSION_MAJOR}-${VERSION_MINOR}-${VERSION_PATCH}"
+                        FULL_VERSION = "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
+                    } else {
+                        FULL_VERSION = env.BRANCH_NAME.split('/')[1]
+                    }
+                    currentBuild.displayName = "${FULL_VERSION} #${BUILD_NUMBER}"
+                }
+            }
+        }
         stage('Build') {
             agent {
                 docker {
