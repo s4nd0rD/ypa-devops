@@ -23,7 +23,7 @@ pipeline {
                             FULL_VERSION = env.BRANCH_NAME.split('/')[1]
                         }
                         currentBuild.displayName = "${FULL_VERSION} #${BUILD_NUMBER}"
-                        env.DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:${FULL_VERSION}-${BUILD_NUMBER}"
+                        DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:${FULL_VERSION}-${BUILD_NUMBER}"
                     }
                 }
             }
@@ -43,7 +43,7 @@ pipeline {
         stage('Package') {
             steps {
                 script {
-                    DOCKER_IMAGE = docker.build DOCKER_IMAGE_FULL_NAME
+                    DOCKER_IMAGE = docker.build ${DOCKER_IMAGE_FULL_NAME}
                 }
             }
         }
