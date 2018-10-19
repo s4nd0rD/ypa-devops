@@ -1,5 +1,13 @@
 #!/usr/bin/env groovy
 pipeline {
+    environment {
+        DOCKER_IMAGE_NAME = "moduo/devops"
+        DOCKER_IMAGE_FULL_NAME = ''
+        REGISTRY_CREDENTIALS = "DockerHub"
+        BRANCH_ENVIRONMENT    = getEnvironmentBranch()
+        DOCKER_IMAGE = ''
+        FULL_VERSION = ''
+    }
     agent any
     stages {
         stage('Prepare') {
@@ -65,14 +73,6 @@ pipeline {
                 }
             }
         }
-    }
-    environment {
-        DOCKER_IMAGE_NAME = "moduo/devops"
-        DOCKER_IMAGE_FULL_NAME = ''
-        REGISTRY_CREDENTIALS = "DockerHub"
-        BRANCH_ENVIRONMENT    = getEnvironmentBranch()
-        DOCKER_IMAGE = ''
-        FULL_VERSION = ''
     }
 }
 
