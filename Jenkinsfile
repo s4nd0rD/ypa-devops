@@ -107,6 +107,8 @@ def getEnvironmentBranch() {
 
     if (gitBranch.contains("release/")) {
         getEnvironmentBranch = "release"
+    } else if (gitBranch.contains("master")) {
+        getEnvironmentBranch = "master"
     }
 
     return getEnvironmentBranch
