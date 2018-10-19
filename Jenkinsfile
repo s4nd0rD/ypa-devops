@@ -43,7 +43,7 @@ pipeline {
         stage('Package') {
             steps {
                 script {
-                    DOCKER_IMAGE = docker.build ${DOCKER_IMAGE_FULL_NAME}
+                    DOCKER_IMAGE = docker.build "${DOCKER_IMAGE_FULL_NAME}"
                 }
             }
         }
