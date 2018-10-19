@@ -4,7 +4,7 @@ pipeline {
         DOCKER_IMAGE_NAME = "moduo/devops"
         DOCKER_IMAGE_FULL_NAME = ''
         REGISTRY_CREDENTIALS = "DockerHub"
-        BRANCH_ENVIRONMENT    = getEnvironmentBranch()
+        BRANCH_ENVIRONMENT = getEnvironmentBranch()
         DOCKER_IMAGE = ''
         FULL_VERSION = ''
     }
@@ -13,9 +13,9 @@ pipeline {
         stage('Prepare') {
             steps {
                 script {
-                    if(BRANCH_ENVIRONMENT == 'release'){
+                    if (BRANCH_ENVIRONMENT == 'release') {
                         def branchTokens = env.BRANCH_NAME.split('/')
-                        if(branchTokens.length == 2){
+                        if (branchTokens.length == 2) {
                             setVersion(branchTokens)
                             RELEASE_VERSION = "${VERSION_MAJOR}-${VERSION_MINOR}-${VERSION_PATCH}"
                             FULL_VERSION = "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
@@ -23,7 +23,7 @@ pipeline {
                             FULL_VERSION = env.BRANCH_NAME.split('/')[1]
                         }
                         currentBuild.displayName = "${FULL_VERSION} #${BUILD_NUMBER}"
-                        DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:${FULL_VERSION}-${BUILD_NUMBER}"
+                        env.DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:${FULL_VERSION}-${BUILD_NUMBER}"
                     }
                 }
             }
@@ -67,9 +67,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                  docker.withRegistry('', REGISTRY_CREDENTIALS ) {
-                    DOCKER_IMAGE.push()
-                  }
+                    docker.withRegistry('', REGISTRY_CREDENTIALS) {
+                        DOCKER_IMAGE.push()
+                    }
                 }
             }
         }
@@ -79,7 +79,7 @@ pipeline {
 def setVersion(branchTokens) {
     def versionTokens = branchTokens[1].split('\\.')
 
-    if(versionTokens.length != 3){
+    if (versionTokens.length != 3) {
         error "INVALID version ${branchTokens[1]}."
     }
     VERSION_MAJOR = versionTokens[0]
@@ -92,7 +92,7 @@ def getEnvironmentBranch() {
     def getEnvironmentBranch = "feature"
     def gitBranch = env.BRANCH_NAME
 
-    if(gitBranch.contains("release/")){
+    if (gitBranch.contains("release/")) {
         getEnvironmentBranch = "release"
     }
 
