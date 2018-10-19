@@ -22,6 +22,7 @@ pipeline {
                         } else {
                             FULL_VERSION = env.BRANCH_NAME.split('/')[1]
                         }
+                        DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:${FULL_VERSION}-${BUILD_NUMBER}"
                     } else if (BRANCH_ENVIRONMENT == 'feature') {
                         def branchTokens = env.BRANCH_NAME.split('/')
                         if (branchTokens.length == 2) {
@@ -29,12 +30,14 @@ pipeline {
                         } else {
                             FULL_VERSION = branchTokens[0]
                         }
+                        DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:${FULL_VERSION}-${BUILD_NUMBER}"
+                    } else if (BRANCH_ENVIRONMENT == 'master') {
+                        FULL_VERSION = "latest"
+                        DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:${FULL_VERSION}"
+                    } else {
+                        FULL_VERSION = BRANCH_ENVIRONMENT
                     }
-                    currentBuild.displayName = "${FULL_VERSION} #${BUILD_NUMBER}"
-                    echo "Build name ${FULL_VERSION} #${BUILD_NUMBER}"
-                    DOCKER_IMAGE_FULL_NAME = "${DOCKER_IMAGE_NAME}:${FULL_VERSION}-${BUILD_NUMBER}"
-                    echo "Full image name ${DOCKER_IMAGE_FULL_NAME}"
-
+                    currentBuild.displayName = "${FULL_VERSION} ${BUILD_NUMBER}"
                 }
             }
         }
