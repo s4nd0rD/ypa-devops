@@ -89,7 +89,7 @@ pipeline {
         stage('Deploy') {
             when { branch 'dev*' }
             steps {
-                sh 'docker-compose up -d -f /apps/ypa-devops/configuration/docker-compose.yml'
+                sh 'docker-compose up -d -f /apps/ypa-devops/docker-compose.yml'
             }
         }
     }
