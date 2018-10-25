@@ -77,13 +77,19 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Archive') {
             steps {
                 script {
                     docker.withRegistry('', REGISTRY_CREDENTIALS) {
                         DOCKER_IMAGE.push()
                     }
                 }
+            }
+        }
+        stage('Deploy') {
+            when { branch 'dev*' }
+            steps {
+                sh 'docker-compose up -d -f /apps/ypa-devops/configuration/docker-compose.yml'
             }
         }
     }
