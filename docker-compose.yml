@@ -20,7 +20,7 @@ services:
     labels:
     - "traefik.frontend.rule=Host:ivan.dev.tomoud.nl"
   wendy-dev:
-    image: moduo/devops:wendy-7
+    image: moduo/devops:wendy-8
     ports:
     - 8080
     labels:
