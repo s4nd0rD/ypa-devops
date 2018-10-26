@@ -20,6 +20,6 @@ public class ApplicationTest {
 
     @Test
     public void contexLoads() throws Exception {
-        assertThat(controller).isNull();
+        assertThat(controller).isNotNull();
     }
 }
