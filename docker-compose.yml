@@ -19,3 +19,27 @@ services:
     - 8080
     labels:
     - "traefik.frontend.rule=Host:ivan.dev.tomoud.nl"
+  wendy-dev:
+    image: moduo/devops:wendy-7
+    ports:
+    - 8080
+    labels:
+    - "traefik.frontend.rule=Host:wendy.dev.tomoud.nl"
+  eva-dev:
+    image: moduo/devops:eva-4
+    ports:
+    - 8080
+    labels:
+    - "traefik.frontend.rule=Host:eva.dev.tomoud.nl"
+  brian-dev:
+    image: moduo/devops:brian-4
+    ports:
+    - 8080
+    labels:
+    - "traefik.frontend.rule=Host:brian.dev.tomoud.nl"
+  peter-dev:
+    image: moduo/devops:peter-5
+    ports:
+    - 8080
+    labels:
+    - "traefik.frontend.rule=Host:peter.dev.tomoud.nl"
