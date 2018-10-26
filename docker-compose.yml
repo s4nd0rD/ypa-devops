@@ -13,3 +13,9 @@ services:
     - 8080
     labels:
     - "traefik.frontend.rule=Host:nathan.dev.tomoud.nl"
+  ivan-dev:
+    image: moduo/devops:ivan-3
+    ports:
+    - 8080
+    labels:
+    - "traefik.frontend.rule=Host:ivan.dev.tomoud.nl"
