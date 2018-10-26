@@ -50,7 +50,6 @@ pipeline {
                 }
             }
             steps {
-                // @TODO: Run your maven build
                 sh 'mvn clean install'
             }
         }
