@@ -1,6 +1,5 @@
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
-# TODO: Copy artifacts
-# first mvn clean install to get the .jar files
 COPY target/*.jar app.jar
+# TODO: Copy artifacts
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
