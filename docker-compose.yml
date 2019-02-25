@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   ypa-devops:
-    image: moduo/devops:sander-4
+    image: moduo/devops:sander-10
     networks:
       - default
       - traefik-net

@@ -13,5 +13,10 @@ public class HomeController {
         model.addAttribute("name", name);
         return "hello";
     }
+    @GetMapping("/liedje")
+    public String song(@RequestParam(name = "songName", required = true, defaultValue = "") String songName, Model model) {
+        model.addAttribute("songName", songName);
+        return "song";
+    }
 
 }
