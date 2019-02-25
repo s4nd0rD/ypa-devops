@@ -11,8 +11,8 @@ services:
     deploy:
       labels:
         - "traefik.port=8080"
-        - "traefik.docker.networ=traefik-net"
+        - "traefik.docker.network=traefik-net"
         - "traefik.frontend.rule=Host:sander.dev.tomoud.nl"
-      networks:
-        traefik-net:
-          external: true
+  networks:
+    traefik-net:
+      external: true
