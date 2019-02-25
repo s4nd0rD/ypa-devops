@@ -50,8 +50,7 @@ pipeline {
                 }
             }
             steps {
-                // @TODO: Build a package
-                echo 'Build a package'
+                sh 'mvn clean install'
             }
         }
         stage('Package') {
