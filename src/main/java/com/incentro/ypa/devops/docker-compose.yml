@@ -1,0 +1,18 @@
+version: '3.3'
+
+services:
+  ypa-devops:
+    image: moduo/devops:sander-4
+    networks:
+      -default
+      -traefik-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      labels:
+        - "traefik.port=8080"
+        - "traefik.docker.networ=traefik-net"
+        - "traefik.frontend.rule=Host:sander.dev.tomoud.nl"
+      networks:
+        traefik.net:
+          external:true
