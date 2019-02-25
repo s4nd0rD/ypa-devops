@@ -4,8 +4,8 @@ services:
   ypa-devops:
     image: moduo/devops:sander-4
     networks:
-      -default
-      -traefik-net
+      - default
+      - traefik-net
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     deploy:
