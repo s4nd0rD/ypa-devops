@@ -69,8 +69,7 @@ pipeline {
                 }
             }
             steps {
-                // @TODO: Run tests
-                echo 'Run tests'
+                sh 'mvn test'
             }
             post {
                 always {
