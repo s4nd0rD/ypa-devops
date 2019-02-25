@@ -14,5 +14,5 @@ services:
         - "traefik.docker.networ=traefik-net"
         - "traefik.frontend.rule=Host:sander.dev.tomoud.nl"
       networks:
-        traefik.net:
-          external:true
+        traefik-net:
+          external: true
